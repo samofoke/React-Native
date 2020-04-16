@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: 0.26,
         elevation: 5,
-        backgroundColor: 'white'
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 10
     },
     containerButton: {
        flexDirection: 'row',
