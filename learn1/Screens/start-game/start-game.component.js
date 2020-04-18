@@ -29,6 +29,12 @@ const startGame = props => {
         setSelectNumber(chosenNumber);
     };
 
+    let confirmedOutput;
+
+    if (conFirmed) {
+        confirmedOutput = <Text>chosen Number: {selectNumber}</Text>
+    }
+
     return (
         <View style={styles.screen}>
             <Text style={styles.title}>Start a new Game</Text>
@@ -53,6 +59,7 @@ const startGame = props => {
                     </View>
                 </View>
             </Card>
+            {confirmedOutput}
         </View>
     )
 };
