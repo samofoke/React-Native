@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text, Button, Alert, Keyboard} from 'react-native';
 import Card from '../../component/Card/card.component';
 import Input from '../../component/Input/input.component';
+import Colors from '../../component/Colors/colors.component';
+import NumberContainer from '../../component/NumberContainer/numcontainer.component';
 
 const startGame = props => {
 
@@ -21,18 +23,30 @@ const startGame = props => {
 
     const enterInput = inputText => {
         const chosenNumber = parseInt(enteredValue);
-        if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                'Invalid Number',
+                'Numer is not between 1 and 99.',
+                [{text: 'Okay', style: 'destructive', onPress: resetInput}]
+            );
             return;
         }
         setconFirmed(true);
-        setEnteredValue('');
         setSelectNumber(chosenNumber);
+        setEnteredValue('');
+        Keyboard.dismiss();
     };
 
     let confirmedOutput;
 
     if (conFirmed) {
-        confirmedOutput = <Text>chosen Number: {selectNumber}</Text>
+        confirmedOutput = (
+            <Card style={styles.sumContainer}>
+                <Text>The number chosen</Text>
+                <NumberContainer>{selectNumber}</NumberContainer>
+                <Button title="Start Game" />
+            </Card>
+        );
     }
 
     return (
@@ -52,10 +66,10 @@ const startGame = props => {
                 />
                 <View style={styles.containerButton}>
                     <View style={styles.button}>
-                        <Button title="reset" onPress={resetInput} color="#FF7F50" />
+                        <Button title="reset" onPress={resetInput} color={Colors.resetcolor} />
                     </View>
                     <View style={styles.button}>
-                        <Button title="confirm" onPress={enterInput} color="#7FFF00" />
+                        <Button title="confirm" onPress={enterInput} color={Colors.confirmcolor} />
                     </View>
                 </View>
             </Card>
@@ -91,6 +105,9 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 50
+    },
+    sumContainer: {
+        marginTop: 20
     }
 });
 
