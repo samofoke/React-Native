@@ -7,10 +7,27 @@ import Input from '../../component/Input/input.component';
 const startGame = props => {
 
     const [enteredValue, setEnteredValue] = useState('');
+    const [conFirmed, setconFirmed] = useState(false);
+    const [selectNumber, setSelectNumber] = useState();
 
     const inputHandler = inputText => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
-    }
+    };
+
+    const resetInput = inputText => {
+        setEnteredValue('');
+        setconFirmed(false);
+    };
+
+    const enterInput = inputText => {
+        const chosenNumber = parseInt(enteredValue);
+        if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+            return;
+        }
+        setconFirmed(true);
+        setEnteredValue('');
+        setSelectNumber(chosenNumber);
+    };
 
     return (
         <View style={styles.screen}>
@@ -29,14 +46,10 @@ const startGame = props => {
                 />
                 <View style={styles.containerButton}>
                     <View style={styles.button}>
-                        <Button title="reset" onPress={() => {
-
-                        }} color="#FF7F50" />
+                        <Button title="reset" onPress={resetInput} color="#FF7F50" />
                     </View>
                     <View style={styles.button}>
-                        <Button title="confirm" onPress={() => {
-
-                        }} color="#7FFF00" />
+                        <Button title="confirm" onPress={enterInput} color="#7FFF00" />
                     </View>
                 </View>
             </Card>
